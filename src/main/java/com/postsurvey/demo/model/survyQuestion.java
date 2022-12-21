@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Data
@@ -21,12 +22,21 @@ public class survyQuestion {
     private String type;
     private String group_l;
     private String isactive;
-    private LocalDateTime addedDate;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable = false)
+    private Date addedDate;
+    private int userId;
+
+    @PrePersist
+    private void onCreate() {
+        addedDate = new Date();
+    }
+
+  /*  @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "answer_id")
     private Answers answ;
-
+*/
 
     public Long getQues_id() {
         return ques_id;

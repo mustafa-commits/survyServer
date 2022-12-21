@@ -4,6 +4,8 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.List;
 
 @Entity
 @Data
@@ -11,7 +13,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Getter
 @Setter
-public class users_ques {
+public class users {
     @Id
     @Column(name = "userid", nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -19,7 +21,16 @@ public class users_ques {
     private String name;
     private String phone;
     private String email;
-    private LocalDateTime localDateTime;
 
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable = false)
+    private Date localDateTime;
+
+    @PrePersist
+    private void onCreate() {
+        localDateTime = new Date();
+    }
+    /*@OneToMany
+    private List<Answers> answers;*/
 
 }

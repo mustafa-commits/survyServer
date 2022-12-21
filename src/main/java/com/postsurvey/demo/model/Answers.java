@@ -5,6 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Data
@@ -20,14 +21,29 @@ public class Answers {
     private String question_id;
     private String answer;
     private String choice;
-    private LocalDateTime answerdate;
+    private String UserId;
 
-    @OneToOne(mappedBy = "answ")
-    private survyQuestion survyQuestion;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable = false)
+    private Date answerdate;
 
+    @PrePersist
+    private void onCreate() {
+        answerdate = new Date();
+    }
+/*
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private users users;
+
+
+    @ManyToOne
+    private users user;
     public Long getAnswer_id() {
         return answer_id;
     }
+*/
 
     public void setAnswer_id(Long answer_id) {
         this.answer_id = answer_id;
