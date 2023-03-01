@@ -1,9 +1,11 @@
 package com.postsurvey.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 @Entity
@@ -23,14 +25,17 @@ public class survyQuestion {
     private String group_l;
     private String isactive;
 
-    @Temporal(TemporalType.TIMESTAMP)
+    //@Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
-    private Date addedDate;
+    private LocalDateTime addedDate;
     private int userId;
 
     @PrePersist
     private void onCreate() {
-        addedDate = new Date();
+        LocalDateTime myDateObj = LocalDateTime.now().plusHours(3);
+        DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+        String formattedDate = myDateObj.format(myFormatObj);
+        addedDate = myDateObj;
     }
 
   /*  @OneToOne(cascade = CascadeType.ALL)

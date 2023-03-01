@@ -23,7 +23,7 @@ public class Answers {
     private String choice;
     private String UserId;
 
-    @Temporal(TemporalType.TIMESTAMP)
+    //@Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
     private Date answerdate;
 
